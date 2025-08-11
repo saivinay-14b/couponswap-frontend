@@ -1,6 +1,6 @@
 const API_BASE_URL = "https://couponswap-backend.onrender.com";
 
-// Upload coupon
+// ====================== UPLOAD COUPON ======================
 const uploadForm = document.getElementById('uploadForm');
 
 if (uploadForm) {
@@ -14,10 +14,10 @@ if (uploadForm) {
       return;
     }
 
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
+    const title = document.getElementById('title').value.trim();
+    const description = document.getElementById('description').value.trim();
     const expiryDate = document.getElementById('expiryDate').value;
-    const image = document.getElementById('image').value;
+    const image = document.getElementById('image').value.trim();
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/coupons`, {
@@ -32,10 +32,10 @@ if (uploadForm) {
       const data = await res.json();
 
       if (res.ok) {
-        alert(`✅ Coupon uploaded! 🎉 You earned 5 SwapCoins.`);
+        alert('✅ Coupon uploaded! 🎉 You earned 5 SwapCoins.');
         uploadForm.reset();
       } else {
-        alert(`❌ ${data.msg}`);
+        alert(`❌ ${data.msg || 'Upload failed.'}`);
       }
     } catch (err) {
       console.error(err);
@@ -44,7 +44,7 @@ if (uploadForm) {
   });
 }
 
-// Marketplace
+// ====================== DISPLAY MARKETPLACE ======================
 const couponList = document.getElementById('couponList');
 
 if (couponList) {
@@ -56,11 +56,8 @@ if (couponList) {
         return;
       }
 
-      coupons.forEach(coupon => {
-        const col = document.createElement('div');
-        col.className = 'col-md-4 mb-4';
-
-        col.innerHTML = `
+      couponList.innerHTML = coupons.map(coupon => `
+        <div class="col-md-4 mb-4">
           <div class="card h-100">
             <img src="${coupon.image || 'https://via.placeholder.com/300'}" class="card-img-top" alt="${coupon.title}">
             <div class="card-body">
@@ -70,9 +67,8 @@ if (couponList) {
               <button class="btn btn-primary claim-btn" data-id="${coupon._id}">Claim</button>
             </div>
           </div>
-        `;
-        couponList.appendChild(col);
-      });
+        </div>
+      `).join('');
 
       document.querySelectorAll('.claim-btn').forEach(button => {
         button.addEventListener('click', async () => {

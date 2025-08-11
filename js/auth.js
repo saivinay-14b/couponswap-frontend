@@ -1,11 +1,13 @@
+// API base URL for deployed backend
 const API_BASE_URL = "https://couponswap-backend.onrender.com";
 
-// Register
+// ======================= REGISTER =======================
 const registerForm = document.getElementById('registerForm');
 if (registerForm) {
   registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = document.getElementById('name').value;
+
+    const name = document.getElementById('fullName').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -17,6 +19,7 @@ if (registerForm) {
       });
 
       const data = await res.json();
+
       if (res.ok) {
         alert('✅ Registered successfully! Please login.');
         window.location.href = 'login.html';
@@ -30,11 +33,12 @@ if (registerForm) {
   });
 }
 
-// Login
+// ======================= LOGIN =======================
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -46,6 +50,7 @@ if (loginForm) {
       });
 
       const data = await res.json();
+
       if (res.ok) {
         localStorage.setItem('token', data.token);
         alert('✅ Login successful!');
@@ -60,7 +65,7 @@ if (loginForm) {
   });
 }
 
-// Logout
+// ======================= LOGOUT =======================
 const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', () => {

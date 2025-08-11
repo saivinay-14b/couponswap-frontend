@@ -1,13 +1,13 @@
-// API base URL for deployed backend
 const API_BASE_URL = "https://couponswap-backend.onrender.com";
 
-// ======================= REGISTER =======================
+// Register
 const registerForm = document.getElementById('registerForm');
+
 if (registerForm) {
   registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('fullName').value;
+    const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -33,8 +33,9 @@ if (registerForm) {
   });
 }
 
-// ======================= LOGIN =======================
+// Login
 const loginForm = document.getElementById('loginForm');
+
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -65,8 +66,9 @@ if (loginForm) {
   });
 }
 
-// ======================= LOGOUT =======================
+// Logout
 const logoutBtn = document.getElementById('logoutBtn');
+
 if (logoutBtn) {
   logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('token');
